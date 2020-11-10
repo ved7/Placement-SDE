@@ -1,0 +1,30 @@
+Note : Although Leetcode consider this a hard problem. But if we observe this problem is the variation of the famous problem i.e finding the longest common subsequence of two string A and B.
+Concept : Given a string A. Now we will copy the string in string B and use reverse function(C++ STL) on it and then just write the simple code of finding the LCS and at last return (size_of_string - dp[size][size]).
+
+CODE  : 
+    int minInsertions(string A) {
+        int m = A.length();
+        string B = A;
+        reverse(B.begin(),B.end());
+  
+  int dp[m+1][m+1];
+  
+  for(int i = 0 ; i <= m ; i++ )
+  for(int j = 0 ; j <= m ; j++ )
+  {
+    if(i==0 || j==0)
+      dp[i][j] = 0;
+    else
+     { 
+      if(A[i-1] == B[j-1])
+        dp[i][j] = 1 + dp[i-1][j-1];
+       else
+        dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+     }
+     
+  }
+        
+return (m-dp[m][m]);
+}        
+  
+  
