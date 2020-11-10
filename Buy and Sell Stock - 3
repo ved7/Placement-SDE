@@ -1,0 +1,30 @@
+Code : c++
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int m = prices.size();
+        if(m < 2) return 0;
+        vector<int> left(m),right(m);
+        /////////////////      left array  ////////////////////////////  
+        int lmin = prices[0];
+        for(int i = 1 ; i < m ; i++ )
+         {
+            left[i] = max(left[i-1],prices[i]-lmin);
+            lmin = min(lmin,prices[i]);
+         }
+       //////////////// right array ///////////////////////////////////
+         int rmax = prices[m-1];
+        for(int i = m-2 ; i>=0 ; i-- )
+         {
+              right[i] = max(right[i+1],rmax - prices[i]);
+             rmax = max(rmax,prices[i]);
+         }
+      /////////////////////// summing up ///////////////////////////// 
+       int res = right[0];
+       for(int i= 1 ; i < m ; i++)
+          res = max( res , right[i] + left[i-1] );
+        
+       return res; 
+        
+    }
+};
